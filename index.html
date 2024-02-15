@@ -6,16 +6,17 @@
     <link rel="stylesheet" href="style.css" media="screen" charset="utf-8">
   </head>
   <body>
-    <div class="header">
+    <header class="header">
+      <h1>Todo App</h1>
       <img
         src="./eisenhower-matrix.jpg"
         alt="eisenhower matrix describing logic how to decide when to do, plan, delegate or eliminate things"
       >
       <a class="more-inf" href="https://goal-life.com/page/method/matrix-eisenhower">Want more details?</a>
-    </div>
-    <div class="todo-app">
-      <p id="new-tasks">
-        <label for="new-task">Add Item</label>
+    </header>
+    <main class="todo-app">
+      <article id="new-tasks">
+        <h2>Add Item</h2>
         <div class="new-task-wrapper">
           <input
             id="new-task"
@@ -24,45 +25,52 @@
           >
           <button>Add</button>
         </div>
-      </p>
-      <h3>Todo</h3>
-      <ul id="incomplete-tasks">
-        <li>
-          <input type="checkbox">
-          <label class="task">Pay Bills</label>
-          <input type="text" class="task">
-          <button class="edit">Edit</button>
-          <button class="delete">
-            <img src="./remove.svg" alt="remove icon">
-          </button>
-        </li>
-        <li class="edit-mode">
-          <input type="checkbox">
-          <label class="task">Go Shopping</label>
-          <input
-            type="text"
-            value="Go Shopping"
-            class="task"
-          >
-          <button class="edit">Save</button>
-          <button class="delete">
-            <img src="./remove.svg" alt="remove icon">
-          </button>
-        </li>
-      </ul>
-      <h3>Completed</h3>
-      <ul id="completed-tasks">
-        <li>
-          <input type="checkbox" checked>
-          <label class="task">See the Doctor</label>
-          <input type="text" class="task">
-          <button class="edit">Edit</button>
-          <button class="delete">
-            <img src="./remove.svg" alt="remove icon">
-          </button>
-        </li>
-      </ul>
-    </div>
+      </article>
+      <article>
+        <h2>Todo</h2>
+        <ul id="incomplete-tasks">
+          <li>
+            <input type="checkbox">
+            <label class="task">Pay Bills</label>
+            <input type="text" class="task">
+            <button class="edit">Edit</button>
+            <button class="delete">
+              <img src="./remove.svg" alt="remove icon">
+            </button>
+          </li>
+          <li class="edit-mode">
+            <input type="checkbox">
+            <label class="task">Go Shopping</label>
+            <input
+              type="text"
+              value="Go Shopping"
+              class="task"
+            >
+            <button class="edit">Save</button>
+            <button class="delete">
+              <img src="./remove.svg" alt="remove icon">
+            </button>
+          </li>
+        </ul>
+      </article>
+      <article>
+        <h2>Completed</h2>
+        <ul id="completed-tasks">
+          <li>
+            <input type="checkbox" checked>
+            <label class="task">See the Doctor</label>
+            <input type="text" class="task">
+            <button class="edit">Edit</button>
+            <button class="delete">
+              <img src="./remove.svg" alt="remove icon">
+            </button>
+          </li>
+        </ul>
+      </article>
+    </main>
+    <footer>
+      <small>Todo App <time datetime="2024">2024</time>. © All rights reserved</small>
+    </footer>
     <script src="app.js"></script>
   </body>
 </html>
