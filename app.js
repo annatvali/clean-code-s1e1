@@ -34,8 +34,6 @@ const createNewTaskElement = function (taskString) {
 }
 
 const addTask = function () {
-  console.log("Add Task...");
-
   if (!taskInput.value) return;
   const listItem = createNewTaskElement(taskInput.value);
 
@@ -46,9 +44,6 @@ const addTask = function () {
 }
 
 const editTask = function () {
-  console.log("Edit Task...");
-  console.log("Change 'edit' to 'save'");
-
   const listItem = this.parentNode;
   const editInput = listItem.querySelector(".task__input_text");
   const label = listItem.querySelector(".task__name");
@@ -69,16 +64,11 @@ const editTask = function () {
 };
 
 const deleteTask = function () {
-  console.log("Delete Task...");
-
   const listItem = this.parentNode;
-  const ul = listItem.parentNode;
-  ul.removeChild(listItem);
+  listItem.parentNode.removeChild(listItem);
 }
 
 const toggleTaskStatus = function (sourceHolder, destinationHolder, eventHandler) {
-  console.log("Toggle Task Status...");
-
   const listItem = this.parentNode;
   sourceHolder.removeChild(listItem);
   destinationHolder.appendChild(listItem);
@@ -100,11 +90,9 @@ const ajaxRequest = function () {
 addButton.onclick = function () {
   addTask();
   ajaxRequest();
-};
+}
 
 const bindTaskEvents = function (taskListItem, checkBoxEventHandler) {
-  console.log("bind list item events");
-
   const checkBox = taskListItem.querySelector(".task__input_checkbox");
   const editButton = taskListItem.querySelector(".btn_edit");
   const deleteButton = taskListItem.querySelector(".btn_delete");
@@ -115,10 +103,8 @@ const bindTaskEvents = function (taskListItem, checkBoxEventHandler) {
 }
 
 function bindEventsToChildren(holder, eventHandler) {
-  for (let i = 0; i < holder.children.length; i++) {
-    bindTaskEvents(holder.children[i], eventHandler);
-  }
+  Array.from(holder.children).forEach(child => bindTaskEvents(child, eventHandler));
 }
 
 bindEventsToChildren(incompleteTaskHolder, taskCompleted);
-bindEventsToChildren(completedTasksHolder, taskIncomplete);
+bindEventsToChildren(completedTasksHolder, taskIncomplete)
