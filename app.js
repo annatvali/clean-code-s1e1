@@ -83,14 +83,7 @@ const taskIncomplete = function () {
   toggleTaskStatus.call(this, completedTasksHolder, incompleteTaskHolder, taskCompleted);
 }
 
-const ajaxRequest = function () {
-  console.log("AJAX Request");
-}
-
-addButton.onclick = function () {
-  addTask();
-  ajaxRequest();
-}
+addButton.onclick = addTask;
 
 const bindTaskEvents = function (taskListItem, checkBoxEventHandler) {
   const checkBox = taskListItem.querySelector(".task__input_checkbox");
