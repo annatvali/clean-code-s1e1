@@ -23,7 +23,7 @@ const createNewTaskElement = function (taskString) {
   checkBox.type = "checkbox";
   editInput.type = "text";
 
-  deleteButtonImg.src = "./remove.svg";
+  deleteButtonImg.src = "./assets/remove.svg";
   deleteButtonImg.setAttribute("alt", "remove icon");
   deleteButton.appendChild(deleteButtonImg);
 
