@@ -3,6 +3,7 @@ const addButton = document.querySelectorAll(".btn")[0];
 const incompleteTaskHolder = document.querySelector(".incomplete-task__list");
 const completedTasksHolder = document.querySelector(".completed-task__list");
 
+// TODO: Refactor the code to use createDocumentFragment() method
 function createElement(type, className, innerText) {
   const element = document.createElement(type);
   element.className = className;
