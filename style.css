@@ -27,7 +27,6 @@
 .app-header__link {
   font-family: var(--secondary-font)
 }
-
 @media (max-width: 768px) {
   .app-header {
     text-align: center;
@@ -99,7 +98,6 @@
 .task__input:focus {
   color: var(--main-color);
 }
-
 /* New Task */
 .task-entry__title {
   display: block;
@@ -108,7 +106,6 @@
 .task-entry__input {
   width: 318px;
 }
-
 /* Task list */
 .task__item {
   overflow: hidden;
@@ -124,7 +121,6 @@
 .btn {
   vertical-align: middle;
 }
-
 .task__input_checkbox {
   margin: 0 10px;
 }
@@ -146,23 +142,19 @@
 .btn-img:hover {
   transform: rotateZ(0);
 }
-
 /* Completed */
 .completed-task__list .task__name {
   text-decoration: line-through;
   color: var(--secondary-color);
 }
-
 /* Edit Task */
 .task__input_text {
   display: none;
 }
-
 .task__item_edit .task__input_text {
   display: inline-block;
   width: 224px;
 }
-
 .task__item_edit .task__name {
   display: none;
 }
