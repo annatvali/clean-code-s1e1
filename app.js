@@ -3,41 +3,33 @@ const addButton = document.querySelectorAll(".btn")[0];
 const incompleteTaskHolder = document.querySelector(".incomplete-task__list");
 const completedTasksHolder = document.querySelector(".completed-task__list");
 
+function createElement(type, className, innerText) {
+  const element = document.createElement(type);
+  element.className = className;
+  if (innerText) element.innerText = innerText;
+  return element;
+}
+
 const createNewTaskElement = function (taskString) {
-  const listItem = document.createElement("li");
-  listItem.className = "task__item";
-
-  const checkBox = document.createElement("input");
-  const label = document.createElement("label");
-
-  const editInput = document.createElement("input");
-  const editButton = document.createElement("button");
-
-  const deleteButton = document.createElement("button");
-  const deleteButtonImg = document.createElement("img");
-
-  label.innerText = taskString;
-  label.className = "task__name";
+  const listItem = createElement("li", "task__item");
+  const checkBox = createElement("input", "task__input task__input_checkbox");
+  const label = createElement("label", "task__name", taskString);
+  const editInput = createElement("input", "task__input task__input_text");
+  const editButton = createElement("button", "btn btn_edit", "Edit");
+  const deleteButton = createElement("button", "btn btn_delete");
+  const deleteButtonImg = createElement("img", "btn-img");
 
   checkBox.type = "checkbox";
-  checkBox.className = "task__input task__input_checkbox";
   editInput.type = "text";
-  editInput.className = "task__input task__input_text";
 
-  editButton.innerText = "Edit";
-  editButton.className = "btn btn_edit";
-
-  deleteButton.className = "btn btn_delete";
-  deleteButtonImg.className = "btn-img";
   deleteButtonImg.src = "./remove.svg";
   deleteButtonImg.setAttribute("alt", "remove icon");
   deleteButton.appendChild(deleteButtonImg);
 
-  listItem.appendChild(checkBox);
-  listItem.appendChild(label);
-  listItem.appendChild(editInput);
-  listItem.appendChild(editButton);
-  listItem.appendChild(deleteButton);
+  [checkBox, label, editInput, editButton, deleteButton].forEach(function (element) {
+    listItem.appendChild(element);
+  });
+
   return listItem;
 }
 
@@ -61,16 +53,18 @@ const editTask = function () {
   const editInput = listItem.querySelector(".task__input_text");
   const label = listItem.querySelector(".task__name");
   const editBtn = listItem.querySelector(".btn_edit");
-  const containsClass = listItem.classList.contains("task__item_edit");
+  const isEditMode = listItem.classList.contains("task__item_edit");
 
-  if (containsClass) {
-    label.innerText = editInput.value;
-    editBtn.innerText = "Edit";
+  const text = isEditMode ? editInput.value : label.innerText;
+  const buttonText = isEditMode ? "Edit" : "Save";
+
+  if (isEditMode) {
+    label.innerText = text;
   } else {
-    editInput.value = label.innerText;
-    editBtn.innerText = "Save";
+    editInput.value = text;
   }
 
+  editBtn.innerText = buttonText;
   listItem.classList.toggle("task__item_edit");
 };
 
@@ -82,29 +76,31 @@ const deleteTask = function () {
   ul.removeChild(listItem);
 }
 
-const taskCompleted = function () {
-  console.log("Complete Task...");
+const toggleTaskStatus = function (sourceHolder, destinationHolder, eventHandler) {
+  console.log("Toggle Task Status...");
 
   const listItem = this.parentNode;
-  completedTasksHolder.appendChild(listItem);
-  bindTaskEvents(listItem, taskIncomplete);
+  sourceHolder.removeChild(listItem);
+  destinationHolder.appendChild(listItem);
+  bindTaskEvents(listItem, eventHandler);
+}
+
+const taskCompleted = function () {
+  toggleTaskStatus.call(this, incompleteTaskHolder, completedTasksHolder, taskIncomplete);
 }
 
 const taskIncomplete = function () {
-  console.log("Incomplete Task...");
-
-  const listItem = this.parentNode;
-  incompleteTaskHolder.appendChild(listItem);
-  bindTaskEvents(listItem,taskCompleted);
+  toggleTaskStatus.call(this, completedTasksHolder, incompleteTaskHolder, taskCompleted);
 }
 
 const ajaxRequest = function () {
   console.log("AJAX Request");
 }
 
-addButton.onclick = addTask;
-addButton.addEventListener("click", addTask);
-addButton.addEventListener("click", ajaxRequest);
+addButton.onclick = function () {
+  addTask();
+  ajaxRequest();
+};
 
 const bindTaskEvents = function (taskListItem, checkBoxEventHandler) {
   console.log("bind list item events");
@@ -118,10 +114,11 @@ const bindTaskEvents = function (taskListItem, checkBoxEventHandler) {
   checkBox.onchange = checkBoxEventHandler;
 }
 
-for (let i = 0; i < incompleteTaskHolder.children.length; i++) {
-  bindTaskEvents(incompleteTaskHolder.children[i], taskCompleted);
+function bindEventsToChildren(holder, eventHandler) {
+  for (let i = 0; i < holder.children.length; i++) {
+    bindTaskEvents(holder.children[i], eventHandler);
+  }
 }
 
-for (let i = 0; i < completedTasksHolder.children.length; i++) {
-  bindTaskEvents(completedTasksHolder.children[i], taskIncomplete);
-}
+bindEventsToChildren(incompleteTaskHolder, taskCompleted);
+bindEventsToChildren(completedTasksHolder, taskIncomplete);
